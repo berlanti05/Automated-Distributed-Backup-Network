@@ -1,3 +1,0 @@
-Hello from NodeA
-there is secret data
-
