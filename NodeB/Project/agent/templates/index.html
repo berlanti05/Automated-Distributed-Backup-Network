@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Backup Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<h1>Backup System</h1>
+
+<div class="buttons">
+    <button onclick="run('/backup')">💾 Backup</button>
+    <button onclick="run('/restore')">♻️ Restore</button>
+</div>
+
+<canvas id="statusChart"></canvas>
+
+<div id="popup"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+let chart;
+
+function initChart(success, fail){
+    const ctx = document.getElementById('statusChart').getContext('2d');
+
+    chart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Success', 'Fail'],
+            datasets: [{
+                data: [success, fail],
+                backgroundColor: ['#2ecc71', '#e74c3c']
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    labels: { color: "white" }
+                }
+            }
+        }
+    });
+}
+
+function updateChart(success, fail){
+    chart.data.datasets[0].data = [success, fail];
+    chart.update();
+}
+
+
+// load old data from server
+fetch('/stats')
+.then(res => res.json())
+.then(data => {
+    initChart(data.success, data.fail);
+});
+
+
+function run(url){
+    fetch(url)
+    .then(res => res.json())
+    .then(data => {
+
+        let msg = (data.status === "success")
+            ? "✅ Done"
+            : "❌ Failed";
+
+        show(msg);
+
+        updateChart(data.stats.success, data.stats.fail);
+    })
+    .catch(() => show("❌ Error"));
+}
+
+
+function show(text){
+    let p = document.getElementById("popup");
+    p.innerText = text;
+    p.classList.add("show");
+
+    setTimeout(() => {
+        p.classList.remove("show");
+    }, 2000);
+}
+</script>
+
+</body>
+</html>
