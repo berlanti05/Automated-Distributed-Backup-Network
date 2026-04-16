@@ -38,8 +38,7 @@ Each node:
 - File sync using rsync  
 - Compression using tar + gzip  
 - Secure communication (SSH + Tailscale)  
-- Docker support 🐳  
-- Web dashboard (Flask)  
+- Docker support 🐳   
 - Monitoring success/failure  
 
 ---
@@ -52,8 +51,7 @@ Each node:
 - SSH  
 - rsync  
 - OpenSSL  
-- cron  
-- Python Flask  
+- cron   
 - HTML / CSS / JS  
 - Chart.js  
 - Tailscale  
