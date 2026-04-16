@@ -69,21 +69,19 @@ project/
 ├── backup/
 ├── storage/
 │
-├── scripts/
-│   ├── backup.sh
-│   └── restore.sh
+|
+│── backup.sh
+│── restore.sh
 │
-├── docker/
-│   ├── Dockerfile
-│   └── crontab
+|
+│── Dockerfile
+│── crontab
 │
 ├── agent/
 │   ├── app.py
 │   ├── templates/
 │   │   └── index.html
 │   └── static/
-│       ├── style.css
 │       └── script.js
 │
-└── logs/
-    └── operations.json
+└── logs.json
